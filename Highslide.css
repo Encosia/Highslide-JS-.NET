@@ -1,0 +1,40 @@
+﻿.highslide { cursor: url(<%= WebResource("HighslideImage.graphics.zoomin.cur") %>), pointer; outline: none; }
+.highslide img { border: 2px solid gray; }
+.highslide:hover img { border: 2px solid white; }
+.highslide-image {border: 10px solid white; }
+.highslide-caption {
+  display: none;
+  border: 5px solid white;
+  border-top: none;
+  padding: 5px;
+  background-color: white;
+}
+.highslide-loading {
+  display: block;
+	color: white;
+	font-size: 9px;
+	font-weight: bold;
+	text-transform: uppercase;
+  text-decoration: none;
+	padding: 3px;
+	border-top: 1px solid white;
+	border-bottom: 1px solid white;
+  background-color: black;
+  /*
+  padding-left: 22px;
+  background-image: url(graphics/loader.gif);
+  background-repeat: no-repeat;
+  background-position: 3px 1px;
+  */
+}
+.highslide-move { cursor: move; }
+.highslide-overlay { display: none; }
+.highslide-display-block { display: block; }
+.highslide-display-none { display: none; }
+.controlbar {	background-image: url(<%= WebResource("HighslideImage.graphics.controlbar4.gif") %>);	width: 167px;	height: 34px; }
+.controlbar a {	display: block;	float: left; /*margin: 0px 0 0 4px;*/ height: 27px; }
+.controlbar a:hover {	background-image: url(<%= WebResource("HighslideImage.graphics.controlbar4-hover.gif") %>); }
+.controlbar .previous {	width: 50px; }
+.controlbar .next {	width: 40px; background-position: -50px 0; }
+.controlbar .highslide-move {	width: 40px; background-position: -90px 0; }
+.controlbar .close { width: 36px;	background-position: -130px 0; }
