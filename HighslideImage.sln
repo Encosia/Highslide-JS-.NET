@@ -3,16 +3,56 @@ Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HighslideImage", "HighslideImage.csproj", "{D7A07131-323C-4E88-9F86-6854AF438018}"
 EndProject
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "HighSlideTest", "..\..\Visual Studio Websites\HighSlideTest", "{7A6B4846-F620-46FD-8408-3F397C70137E}"
+	ProjectSection(WebsiteProperties) = preProject
+		TargetFramework = "2.0"
+		Debug.AspNetCompiler.VirtualPath = "/HighSlideTest"
+		Debug.AspNetCompiler.PhysicalPath = "..\..\Visual Studio Websites\HighSlideTest\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\HighSlideTest\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/HighSlideTest"
+		Release.AspNetCompiler.PhysicalPath = "..\..\Visual Studio Websites\HighSlideTest\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\HighSlideTest\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "27953"
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|.NET = Debug|.NET
 		Debug|Any CPU = Debug|Any CPU
+		Debug|Mixed Platforms = Debug|Mixed Platforms
+		Release|.NET = Release|.NET
 		Release|Any CPU = Release|Any CPU
+		Release|Mixed Platforms = Release|Mixed Platforms
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D7A07131-323C-4E88-9F86-6854AF438018}.Debug|.NET.ActiveCfg = Debug|Any CPU
 		{D7A07131-323C-4E88-9F86-6854AF438018}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D7A07131-323C-4E88-9F86-6854AF438018}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D7A07131-323C-4E88-9F86-6854AF438018}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{D7A07131-323C-4E88-9F86-6854AF438018}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{D7A07131-323C-4E88-9F86-6854AF438018}.Release|.NET.ActiveCfg = Release|Any CPU
 		{D7A07131-323C-4E88-9F86-6854AF438018}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D7A07131-323C-4E88-9F86-6854AF438018}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D7A07131-323C-4E88-9F86-6854AF438018}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{D7A07131-323C-4E88-9F86-6854AF438018}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{7A6B4846-F620-46FD-8408-3F397C70137E}.Debug|.NET.ActiveCfg = Debug|.NET
+		{7A6B4846-F620-46FD-8408-3F397C70137E}.Debug|.NET.Build.0 = Debug|.NET
+		{7A6B4846-F620-46FD-8408-3F397C70137E}.Debug|Any CPU.ActiveCfg = Debug|.NET
+		{7A6B4846-F620-46FD-8408-3F397C70137E}.Debug|Mixed Platforms.ActiveCfg = Debug|.NET
+		{7A6B4846-F620-46FD-8408-3F397C70137E}.Debug|Mixed Platforms.Build.0 = Debug|.NET
+		{7A6B4846-F620-46FD-8408-3F397C70137E}.Release|.NET.ActiveCfg = Debug|.NET
+		{7A6B4846-F620-46FD-8408-3F397C70137E}.Release|.NET.Build.0 = Debug|.NET
+		{7A6B4846-F620-46FD-8408-3F397C70137E}.Release|Any CPU.ActiveCfg = Debug|.NET
+		{7A6B4846-F620-46FD-8408-3F397C70137E}.Release|Mixed Platforms.ActiveCfg = Debug|.NET
+		{7A6B4846-F620-46FD-8408-3F397C70137E}.Release|Mixed Platforms.Build.0 = Debug|.NET
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
