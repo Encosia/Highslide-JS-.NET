@@ -3,9 +3,10 @@ Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HighslideImage", "HighslideImage.csproj", "{D7A07131-323C-4E88-9F86-6854AF438018}"
 EndProject
-Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "HighSlideTest", "..\..\Visual Studio Websites\HighSlideTest", "{7A6B4846-F620-46FD-8408-3F397C70137E}"
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "HighSlideTest", "..\..\Visual Studio Websites\HighSlideTest\", "{7A6B4846-F620-46FD-8408-3F397C70137E}"
 	ProjectSection(WebsiteProperties) = preProject
 		TargetFramework = "2.0"
+		ProjectReferences = "{D7A07131-323C-4E88-9F86-6854AF438018}|HighslideImage.dll;"
 		Debug.AspNetCompiler.VirtualPath = "/HighSlideTest"
 		Debug.AspNetCompiler.PhysicalPath = "..\..\Visual Studio Websites\HighSlideTest\"
 		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\HighSlideTest\"

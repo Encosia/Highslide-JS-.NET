@@ -2,7 +2,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.21022</ProductVersion>
+    <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{D7A07131-323C-4E88-9F86-6854AF438018}</ProjectGuid>
     <OutputType>Library</OutputType>
@@ -73,7 +73,7 @@
     <EmbeddedResource Include="highslide.min.js" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="highslide.js" />
+    <EmbeddedResource Include="highslide.js" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
