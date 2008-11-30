@@ -18,7 +18,8 @@ namespace Encosia
     private OutlineTypes _outlineType = OutlineTypes.RoundedWhite;
     private bool _controlBar = true;
     private bool _fadeInOut = true;
-    private bool _renderScriptInPlace = false;
+    private bool _renderScriptInPlace;
+    private bool _includeDefaultCSS = true;
     private int _numberOfImagesToPreload = 5;
 
     [Description("Display the control bar on enlargements.")]
@@ -45,13 +46,24 @@ namespace Encosia
     }
 
     [Description("If set to true, the <script> include will be rendered at the location of the HighslideManager.")]
+    [DefaultValue(false)]
     public bool RenderScriptInPlace
     {
       get { return _renderScriptInPlace; }
       set { _renderScriptInPlace = value; }
     }
 
+    [Description("Should the HighslideManager include default CSS styling for Highslide elements?")]
+    [DefaultValue(true)]
+    public bool IncludeDefaultCSS
+    {
+      get { return _includeDefaultCSS; }
+      set { _includeDefaultCSS = value; }
+    }
+
+
     [Description("How many images to preload.  Use 0 to disable.  Defaults to 5.")]
+    [DefaultValue(5)]
     public int NumberOfImagesToPreload
     {
       get { return _numberOfImagesToPreload; }
@@ -68,19 +80,24 @@ namespace Encosia
         Page.ClientScript.RegisterClientScriptInclude("Highslide", HSEmbedSrc);
       }
 
-      if (Page.Header != null)
+      if (_includeDefaultCSS)
       {
-        // Register the CSS styles, using embedded resource link.
-        string incTemplate = "<link rel='stylesheet' type='text/css' href='{0}' />";
-        string incLoc = Page.ClientScript.GetWebResourceUrl(this.GetType(), "HighslideImage.Highslide.css");
+        if (Page.Header != null)
+        {
+          // Register the CSS styles, using embedded resource link.
+          string incTemplate = "<link rel='stylesheet' type='text/css' href='{0}' />";
+          string incLoc = Page.ClientScript.GetWebResourceUrl(this.GetType(), "HighslideImage.Highslide.css");
 
-        LiteralControl inc = new LiteralControl(string.Format(incTemplate, incLoc));
+          LiteralControl inc = new LiteralControl(string.Format(incTemplate, incLoc));
 
-        Page.Header.Controls.Add(inc);
+          Page.Header.Controls.Add(inc);
+        }
+        else
+        {
+          throw new Exception("Unable to access <head>, when attempting to register the Highslide CSS include.\n\n" +
+                              "If using a master page, make sure its <head> includes a runat=\"server\" attribute.");
+        }
       }
-      else
-        throw new Exception("Unable to access <head>, when attempting to register the Highslide CSS include.\n\n" +
-                            "If using a master page, make sure its <head> includes a runat=\"server\" attribute.");
 
       // Set options in JavaScript block, based on properties.
       string options = string.Format("hs.outlineType = '{0}'; hs.fadeInOut = {1}; hs.numberOfImagesToPreload = {2};", 
@@ -89,8 +106,10 @@ namespace Encosia
       Page.ClientScript.RegisterStartupScript(this.GetType(), "HighslideOptions", options, true);
 
       if (_controlBar)
+      {
         Page.ClientScript.RegisterStartupScript(this.GetType(), "ControlBarOptions",
-        	"hs.registerOverlay( { thumbnailId: null, overlayId: 'controlbar', position: 'top right' } );", true);
+                                                "hs.registerOverlay( { thumbnailId: null, overlayId: 'controlbar', position: 'top right' } );", true);
+      }
 
       base.OnPreRender(e);
     }
