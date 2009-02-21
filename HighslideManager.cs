@@ -88,6 +88,9 @@ namespace Encosia
           string incTemplate = "<link rel='stylesheet' type='text/css' href='{0}' />";
           string incLoc = Page.ClientScript.GetWebResourceUrl(this.GetType(), "HighslideImage.Highslide.css");
 
+          // To force standards compliance.
+          incLoc = incLoc.Replace("&t", "&amp;t");
+
           LiteralControl inc = new LiteralControl(string.Format(incTemplate, incLoc));
 
           Page.Header.Controls.Add(inc);
