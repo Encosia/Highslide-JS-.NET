@@ -14,20 +14,14 @@ namespace Encosia
       RoundedWhite,
     }
 
-    private bool _controlBar;
     private bool _fadeInOut = true;
     private OutlineTypes _outlineType = OutlineTypes.RoundedWhite;
-    private bool _renderScriptInPlace;
     private bool _includeDefaultCSS = true;
     private int _numberOfImagesToPreload = 5;
 
     [Description("Display the control bar on enlargements.")]
     [DefaultValue(true)]
-    public bool ControlBar
-    {
-      get { return _controlBar; }
-      set { _controlBar = value; }
-    }
+    public bool ControlBar { get; set; }
 
     [Description("Fade the enlargement while it animates.")]
     [DefaultValue(true)]
@@ -47,11 +41,7 @@ namespace Encosia
 
     [Description("If true, the <script> include will be rendered at the location of the HighslideManager.")]
     [DefaultValue(false)]
-    public bool RenderScriptInPlace
-    {
-      get { return _renderScriptInPlace; }
-      set { _renderScriptInPlace = value; }
-    }
+    public bool RenderScriptInPlace { get; set; }
 
     [Description("Should the HighslideManager include default CSS styling for Highslide elements?")]
     [DefaultValue(true)]
@@ -110,7 +100,8 @@ namespace Encosia
       if (ControlBar)
       {
         Page.ClientScript.RegisterStartupScript(GetType(), "ControlBarOptions",
-                                                "hs.registerOverlay( { thumbnailId: null, overlayId: 'controlbar', position: 'top right' } );", true);
+                                                "hs.registerOverlay( { thumbnailId: null, overlayId: 'controlbar', position: 'top right' } );",
+                                                true);
       }
 
       base.OnPreRender(e);
