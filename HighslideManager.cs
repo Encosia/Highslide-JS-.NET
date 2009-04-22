@@ -14,6 +14,15 @@ namespace Encosia
       RoundedWhite,
     }
 
+    public enum ControlBarPostitionType
+    {
+      TopLeft,
+      TopRight,
+      BottomLeft,
+      BottomRight,
+    }
+
+    private ControlBarPostitionType _controlBarPosition = ControlBarPostitionType.TopRight;
     private bool _fadeInOut = true;
     private OutlineTypes _outlineType = OutlineTypes.RoundedWhite;
     private bool _includeDefaultCSS = true;
@@ -22,6 +31,10 @@ namespace Encosia
     [Description("Display the control bar on enlargements.")]
     [DefaultValue(true)]
     public bool ControlBar { get; set; }
+
+    [Description("Where the control bar should be positioned, relative to the enlarged image.")]
+    [DefaultValue(ControlBarPostitionType.TopRight)]
+    public ControlBarPostitionType ControlBarPosition { get; set; }
 
     [Description("Fade the enlargement while it animates.")]
     [DefaultValue(true)]
@@ -99,9 +112,13 @@ namespace Encosia
 
       if (ControlBar)
       {
-        Page.ClientScript.RegisterStartupScript(GetType(), "ControlBarOptions",
-                                                "hs.registerOverlay( { thumbnailId: null, overlayId: 'controlbar', position: 'top right' } );",
-                                                true);
+        const string hsOptionsTemplate = "hs.registerOverlay({ thumbnailId: null, " +
+                                                              "overlayId: 'controlbar', " +
+                                                              "position: '$position' });";
+
+        string script = hsOptionsTemplate.Replace("$position", GetControlBarPositionString(ControlBarPosition));
+
+        Page.ClientScript.RegisterStartupScript(GetType(), "ControlBarOptions", script, true);
       }
 
       base.OnPreRender(e);
@@ -128,6 +145,25 @@ namespace Encosia
       }
 
       base.Render(writer);
+    }
+
+    private string GetControlBarPositionString(ControlBarPostitionType position)
+    {
+      switch (position)
+      {
+        case ControlBarPostitionType.TopLeft:
+          return "top left";
+
+        case ControlBarPostitionType.BottomRight:
+          return "bottom right";
+
+        case ControlBarPostitionType.BottomLeft:
+          return "bottom left";
+
+        case ControlBarPostitionType.TopRight:
+        default:
+          return "top right";
+      }
     }
   }
 }
