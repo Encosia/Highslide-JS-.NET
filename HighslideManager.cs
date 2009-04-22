@@ -34,7 +34,11 @@ namespace Encosia
 
     [Description("Where the control bar should be positioned, relative to the enlarged image.")]
     [DefaultValue(ControlBarPostitionType.TopRight)]
-    public ControlBarPostitionType ControlBarPosition { get; set; }
+    public ControlBarPostitionType ControlBarPosition
+    {
+      get { return _controlBarPosition; }
+      set { _controlBarPosition = value; }
+    }
 
     [Description("Fade the enlargement while it animates.")]
     [DefaultValue(true)]
@@ -87,7 +91,7 @@ namespace Encosia
         if (Page.Header != null)
         {
           // Register the CSS styles, using embedded resource link.
-          string incTemplate = "<link rel=\"stylesheet\" type=\"text/css\" href=\"{0}\" />";
+          const string incTemplate = "<link rel=\"stylesheet\" type=\"text/css\" href=\"{0}\" />";
           string incLoc = Page.ClientScript.GetWebResourceUrl(GetType(), "HighslideImage.Highslide.css");
 
           // To force standards compliance.

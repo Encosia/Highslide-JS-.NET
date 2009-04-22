@@ -52,8 +52,8 @@ Global
 		{7A6B4846-F620-46FD-8408-3F397C70137E}.Release|.NET.ActiveCfg = Debug|.NET
 		{7A6B4846-F620-46FD-8408-3F397C70137E}.Release|.NET.Build.0 = Debug|.NET
 		{7A6B4846-F620-46FD-8408-3F397C70137E}.Release|Any CPU.ActiveCfg = Debug|.NET
-		{7A6B4846-F620-46FD-8408-3F397C70137E}.Release|Mixed Platforms.ActiveCfg = Debug|.NET
-		{7A6B4846-F620-46FD-8408-3F397C70137E}.Release|Mixed Platforms.Build.0 = Debug|.NET
+		{7A6B4846-F620-46FD-8408-3F397C70137E}.Release|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{7A6B4846-F620-46FD-8408-3F397C70137E}.Release|Mixed Platforms.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
