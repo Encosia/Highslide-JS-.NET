@@ -75,7 +75,7 @@ namespace Encosia
 
       // If there's a caption set, render its <div>.
       if (_caption != "")
-        writer.WriteLine(string.Format("<div class='highslide-caption'>{1}</div>", this.ClientID, _caption));
+        writer.WriteLine(string.Format("<div class='highslide-caption'>{0}</div>", _caption));
     }
   }
 }

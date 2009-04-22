@@ -1,6 +1,5 @@
 using System;
 using System.ComponentModel;
-using System.Web;
 using System.Web.UI;
 
 namespace Encosia
@@ -15,9 +14,9 @@ namespace Encosia
       RoundedWhite,
     }
 
-    private OutlineTypes _outlineType = OutlineTypes.RoundedWhite;
-    private bool _controlBar = true;
+    private bool _controlBar;
     private bool _fadeInOut = true;
+    private OutlineTypes _outlineType = OutlineTypes.RoundedWhite;
     private bool _renderScriptInPlace;
     private bool _includeDefaultCSS = true;
     private int _numberOfImagesToPreload = 5;
@@ -37,15 +36,16 @@ namespace Encosia
       get { return _fadeInOut; }
       set { _fadeInOut = value; }
     }
-    
+
     [Description("The outline style of the border around enlarged images.")]
+    [DefaultValue(OutlineTypes.RoundedWhite)]
     public OutlineTypes OutlineType
     {
       get { return _outlineType; }
       set { _outlineType = value; }
     }
 
-    [Description("If set to true, the <script> include will be rendered at the location of the HighslideManager.")]
+    [Description("If true, the <script> include will be rendered at the location of the HighslideManager.")]
     [DefaultValue(false)]
     public bool RenderScriptInPlace
     {
@@ -61,7 +61,6 @@ namespace Encosia
       set { _includeDefaultCSS = value; }
     }
 
-
     [Description("How many images to preload.  Use 0 to disable.  Defaults to 5.")]
     [DefaultValue(5)]
     public int NumberOfImagesToPreload
@@ -72,21 +71,21 @@ namespace Encosia
 
     protected override void OnPreRender(EventArgs e)
     {
-      if (!_renderScriptInPlace)
+      if (!RenderScriptInPlace)
       {
         // Register the main JavaScript code, using embedded resource link.
-        string HSEmbedSrc = Page.ClientScript.GetWebResourceUrl(this.GetType(), "HighslideImage.highslide.min.js");
+        string HSEmbedSrc = Page.ClientScript.GetWebResourceUrl(GetType(), "HighslideImage.highslide.min.js");
 
         Page.ClientScript.RegisterClientScriptInclude("Highslide", HSEmbedSrc);
       }
 
-      if (_includeDefaultCSS)
+      if (IncludeDefaultCSS)
       {
         if (Page.Header != null)
         {
           // Register the CSS styles, using embedded resource link.
-          string incTemplate = "<link rel='stylesheet' type='text/css' href='{0}' />";
-          string incLoc = Page.ClientScript.GetWebResourceUrl(this.GetType(), "HighslideImage.Highslide.css");
+          string incTemplate = "<link rel=\"stylesheet\" type=\"text/css\" href=\"{0}\" />";
+          string incLoc = Page.ClientScript.GetWebResourceUrl(GetType(), "HighslideImage.Highslide.css");
 
           // To force standards compliance.
           incLoc = incLoc.Replace("&t", "&amp;t");
@@ -104,13 +103,13 @@ namespace Encosia
 
       // Set options in JavaScript block, based on properties.
       string options = string.Format("hs.outlineType = '{0}'; hs.fadeInOut = {1}; hs.numberOfImagesToPreload = {2};", 
-        _outlineType.ToString(), _fadeInOut ? "true" : "false", _numberOfImagesToPreload);
+        OutlineType, FadeInOut ? "true" : "false", NumberOfImagesToPreload);
 
-      Page.ClientScript.RegisterStartupScript(this.GetType(), "HighslideOptions", options, true);
+      Page.ClientScript.RegisterStartupScript(GetType(), "HighslideOptions", options, true);
 
-      if (_controlBar)
+      if (ControlBar)
       {
-        Page.ClientScript.RegisterStartupScript(this.GetType(), "ControlBarOptions",
+        Page.ClientScript.RegisterStartupScript(GetType(), "ControlBarOptions",
                                                 "hs.registerOverlay( { thumbnailId: null, overlayId: 'controlbar', position: 'top right' } );", true);
       }
 
@@ -119,21 +118,23 @@ namespace Encosia
 
     protected override void Render(HtmlTextWriter writer)
     {
-      if (_renderScriptInPlace)
+      if (RenderScriptInPlace)
       {        
         // Register the main JavaScript code, using embedded resource link.
-        string HSEmbedSrc = Page.ClientScript.GetWebResourceUrl(this.GetType(), "HighslideImage.highslide.min.js");
+        string HSEmbedSrc = Page.ClientScript.GetWebResourceUrl(GetType(), "HighslideImage.highslide.min.js");
 
         writer.WriteLine(string.Format("<script type=\"text/javascript\" src=\"{0}\"></script>", HSEmbedSrc));
       }
 
-      if (_controlBar)
+      if (ControlBar)
+      {
         writer.WriteLine("<div id=\"controlbar\" class=\"highslide-overlay controlbar\">" +
-          "<a href=\"#\" class=\"previous\" onclick=\"return hs.previous(this)\" title=\"Previous (left arrow key)\"></a>" +
-          "<a href=\"#\" class=\"next\" onclick=\"return hs.next(this);\" title=\"Next (right arrow key)\"></a>" +
-          "<a href=\"#\" class=\"highslide-move\" onclick=\"return false;\" title=\"Click and drag to move\"></a>" +
-          "<a href=\"#\" class=\"close\" onclick=\"return hs.close(this);\" title=\"Close\"></a>" +
-          "</div>");
+                         "<a href=\"#\" class=\"previous\" onclick=\"return hs.previous(this)\" title=\"Previous (left arrow key)\"></a>" +
+                         "<a href=\"#\" class=\"next\" onclick=\"return hs.next(this);\" title=\"Next (right arrow key)\"></a>" +
+                         "<a href=\"#\" class=\"highslide-move\" onclick=\"return false;\" title=\"Click and drag to move\"></a>" +
+                         "<a href=\"#\" class=\"close\" onclick=\"return hs.close(this);\" title=\"Close\"></a>" +
+                         "</div>");
+      }
 
       base.Render(writer);
     }
