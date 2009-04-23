@@ -23,6 +23,12 @@ namespace Encosia
     }
 
     private ControlBarPostitionType _controlBarPosition = ControlBarPostitionType.TopRight;
+
+    private string _controlBarPreviousTitle = "Previous (left arrow key)";
+    private string _controlBarNextTitle = "Next (right arrow key)";
+    private string _controlBarMoveTitle = "Click and drag to move";
+    private string _controlBarCloseTitle = "Close";
+
     private bool _fadeInOut = true;
     private OutlineTypes _outlineType = OutlineTypes.RoundedWhite;
     private bool _includeDefaultCSS = true;
@@ -38,6 +44,38 @@ namespace Encosia
     {
       get { return _controlBarPosition; }
       set { _controlBarPosition = value; }
+    }
+
+    [Description("The title text that should appear for the previous button.")]
+    [DefaultValue("Previous (left arrow key)")]
+    public string ControlBarPreviousTitle
+    {
+      get { return _controlBarPreviousTitle; }
+      set { _controlBarPreviousTitle = value; }
+    }
+
+    [Description("The title text that should appear for the next button.")]
+    [DefaultValue("Next (right arrow key)")]
+    public string ControlBarNextTitle
+    {
+      get { return _controlBarNextTitle; }
+      set { _controlBarNextTitle = value; }
+    }
+
+    [Description("The title text that should appear for the move button.")]
+    [DefaultValue("Click and drag to move")]
+    public string ControlBarMoveTitle
+    {
+      get { return _controlBarMoveTitle; }
+      set { _controlBarMoveTitle = value; }
+    }
+
+    [Description("The title text that should appear for the close button.")]
+    [DefaultValue("Close")]
+    public string ControlBarCloseTitle
+    {
+      get { return _controlBarCloseTitle; }
+      set { _controlBarCloseTitle = value; }
     }
 
     [Description("Fade the enlargement while it animates.")]
@@ -140,12 +178,17 @@ namespace Encosia
 
       if (ControlBar)
       {
-        writer.WriteLine("<div id=\"controlbar\" class=\"highslide-overlay controlbar\">" +
-                         "<a href=\"#\" class=\"previous\" onclick=\"return hs.previous(this)\" title=\"Previous (left arrow key)\"></a>" +
-                         "<a href=\"#\" class=\"next\" onclick=\"return hs.next(this);\" title=\"Next (right arrow key)\"></a>" +
-                         "<a href=\"#\" class=\"highslide-move\" onclick=\"return false;\" title=\"Click and drag to move\"></a>" +
-                         "<a href=\"#\" class=\"close\" onclick=\"return hs.close(this);\" title=\"Close\"></a>" +
-                         "</div>");
+        const string controlBarTemplate = "<div id=\"controlbar\" class=\"highslide-overlay controlbar\">" +
+                                          "<a href=\"#\" class=\"previous\" onclick=\"return hs.previous(this)\" title=\"{0}\"></a>" +
+                                          "<a href=\"#\" class=\"next\" onclick=\"return hs.next(this);\" title=\"{1}\"></a>" +
+                                          "<a href=\"#\" class=\"highslide-move\" onclick=\"return false;\" title=\"{2}\"></a>" +
+                                          "<a href=\"#\" class=\"close\" onclick=\"return hs.close(this);\" title=\"{3}\"></a>" +
+                                          "</div>";
+
+        string controlBarMarkup = string.Format(controlBarTemplate, ControlBarPreviousTitle, ControlBarNextTitle,
+                                                ControlBarMoveTitle, ControlBarCloseTitle);
+
+        writer.WriteLine(controlBarMarkup);
       }
 
       base.Render(writer);
