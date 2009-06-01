@@ -83,4 +83,7 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <PropertyGroup>
+    <PreBuildEvent>"$(ProjectDir)..\tools\jsmin.exe" &lt; "$(ProjectDir)highslide.js" &gt; "$(ProjectDir)highslide.min.js"</PreBuildEvent>
+  </PropertyGroup>
 </Project>
