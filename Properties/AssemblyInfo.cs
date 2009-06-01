@@ -11,7 +11,7 @@ using System.Web.UI;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Encosia")]
 [assembly: AssemblyProduct("Highslide JS .NET")]
-[assembly: AssemblyCopyright("Copyright © 2008")]
+[assembly: AssemblyCopyright("Copyright © 2009")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
