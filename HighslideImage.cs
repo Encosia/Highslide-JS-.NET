@@ -19,7 +19,6 @@ namespace Encosia
     }
 
     [Description("Caption text.")]
-    [DefaultValue("")]
     public string Caption
     {
       get { return _caption; }
@@ -48,9 +47,6 @@ namespace Encosia
       
       if (!string.IsNullOrEmpty(_linkTarget))
         writer.AddAttribute(HtmlTextWriterAttribute.Target, _linkTarget);
-
-      // Used for "unobtrusive" mode.
-      //writer.AddAttribute(HtmlTextWriterAttribute.Rel, "highslide");
 
       // "Obtrusive" mode, I suppose.  Really, this is better for now, in case
       //  the HighslideImage is in an UpdatePanel.
