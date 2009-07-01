@@ -1,6 +1,7 @@
 using System;
 using System.ComponentModel;
 using System.Web.UI;
+using System.Text;
 
 namespace Encosia
 {
@@ -22,6 +23,29 @@ namespace Encosia
       BottomRight,
     }
 
+    public enum AnchorPositionType
+    {
+      Auto,
+      Top,
+      TopRight,
+      Right,
+      BottomRight,
+      Bottom,
+      BottomLeft,
+      Left,
+      TopLeft
+    }
+
+    public enum ExpandEventType
+    {
+      Click,
+      MouseOver
+    }
+
+    // Global reference for HighslideImages to use.
+    public static HighslideManager Manager = null;
+
+    private bool _controlBar = true;
     private ControlBarPostitionType _controlBarPosition = ControlBarPostitionType.TopRight;
 
     private string _controlBarPreviousTitle = "Previous (left arrow key)";
@@ -29,14 +53,28 @@ namespace Encosia
     private string _controlBarMoveTitle = "Click and drag to move";
     private string _controlBarCloseTitle = "Close";
 
+    private int _marginTop = 15;
+    private int _marginRight = 15;
+    private int _marginBottom = 15;
+    private int _marginLeft = 15;
+
+    private bool _showFullExpandButton = true;
+
     private bool _fadeInOut = true;
     private OutlineTypes _outlineType = OutlineTypes.RoundedWhite;
     private bool _includeDefaultCSS = true;
     private int _numberOfImagesToPreload = 5;
+    private AnchorPositionType _anchorPosition;
+    private bool _centerEnlargements = false;
+    private ExpandEventType _expandEvent = ExpandEventType.Click;
 
     [Description("Display the control bar on enlargements.")]
     [DefaultValue(true)]
-    public bool ControlBar { get; set; }
+    public bool ControlBar
+    {
+      get { return _controlBar; }
+      set { _controlBar = value; }
+    }
 
     [Description("Where the control bar should be positioned, relative to the enlarged image.")]
     [DefaultValue(ControlBarPostitionType.TopRight)]
@@ -78,6 +116,46 @@ namespace Encosia
       set { _controlBarCloseTitle = value; }
     }
 
+    [Description("A guaranteed offset between the enlargement and the top edge of the viewport.")]
+    [DefaultValue(15)]
+    public int MarginTop
+    {
+      get { return _marginTop; }
+      set { _marginTop = value; }
+    }
+
+    [Description("A guaranteed offset between the enlargement and the right edge of the viewport.")]
+    [DefaultValue(15)]
+    public int MarginRight
+    {
+      get { return _marginRight; }
+      set { _marginRight = value; }
+    }
+
+    [Description("A guaranteed offset between the enlargement and the bottom edge of the viewport.")]
+    [DefaultValue(15)]
+    public int MarginBottom
+    {
+      get { return _marginBottom; }
+      set { _marginBottom = value; }
+    }
+
+    [Description("A guaranteed offset between the enlargement and the left edge of the viewport.")]
+    [DefaultValue(15)]
+    public int MarginLeft
+    {
+      get { return _marginLeft; }
+      set { _marginLeft = value; }
+    }
+
+    [Description("Should the full expansion button be shown when the enlargement is scaled to fit available area?")]
+    [DefaultValue(true)]
+    public bool ShowFullExpandButton
+    {
+      get { return _showFullExpandButton; }
+      set { _showFullExpandButton = value; }
+    }
+
     [Description("Fade the enlargement while it animates.")]
     [DefaultValue(true)]
     public bool FadeInOut
@@ -114,6 +192,53 @@ namespace Encosia
       set { _numberOfImagesToPreload = value; }
     }
 
+    [Description("Which point of the thumbnail the enlargement expands from.")]
+    [DefaultValue(AnchorPositionType.Auto)]
+    public AnchorPositionType AnchorPosition
+    {
+      get { return _anchorPosition; }
+      set { _anchorPosition = value; }
+    }
+
+    [Description("Should the enlargement be centered above the thumbnail?")]
+    [DefaultValue(false)]
+    public bool CenterEnlargements
+    {
+      get { return _centerEnlargements; }
+      set { _centerEnlargements = value; }
+    }
+
+    [Description("Which event should trigger the thumbnail to expand?")]
+    [DefaultValue(ExpandEventType.Click)]
+    public ExpandEventType ExpandEvent
+    {
+      get { return _expandEvent; }
+      set { _expandEvent = value; }
+    }
+
+    /// <summary>
+    /// To improve serialization.  Later...
+    /// </summary>
+    private class HSExpanderOptionsDTO
+    {
+      public string outlineType;
+      public string fadeInOut;
+      public int numberOfImagesToPreload;
+      public string anchor;
+
+      public int marginTop;
+      public int marginRight;
+      public int marginBottom;
+      public int marginLeft;
+    }
+
+    public HighslideManager()
+    {
+      // Set the static reference so that HighslideImages can
+      //  easily check manager properties later in the page.
+      Manager = this;
+    }
+
     protected override void OnPreRender(EventArgs e)
     {
       if (!RenderScriptInPlace)
@@ -146,11 +271,37 @@ namespace Encosia
         }
       }
 
-      // Set options in JavaScript block, based on properties.
-      string options = string.Format("hs.outlineType = '{0}'; hs.fadeInOut = {1}; hs.numberOfImagesToPreload = {2};", 
-        OutlineType, FadeInOut ? "true" : "false", NumberOfImagesToPreload);
+      StringBuilder options = new StringBuilder();
 
-      Page.ClientScript.RegisterStartupScript(GetType(), "HighslideOptions", options, true);
+      options.AppendFormat("hs.outlineType = '{0}';", OutlineType);
+
+      options.AppendFormat("hs.fadeInOut = {0};", FadeInOut ? "true" : "false");
+
+      options.AppendFormat("hs.numberOfImagesToPreload = {0};", NumberOfImagesToPreload);
+
+      options.AppendFormat("hs.align = '{0}';", CenterEnlargements ? "center" : "auto");
+
+      options.AppendFormat("hs.anchor = '{0}';", GetAnchorPositionString(AnchorPosition));
+
+      if (MarginTop != 15)
+        options.AppendFormat("hs.marginTop = {0};", MarginTop);
+
+      if (MarginRight != 15)
+        options.AppendFormat("hs.marginRight = {0};", MarginRight);
+
+      if (MarginBottom != 15)
+        options.AppendFormat("hs.marginBottom = {0};", MarginBottom);
+
+      if (MarginLeft != 15)
+        options.AppendFormat("hs.marginLeft = {0};", MarginLeft);
+
+      if (!ShowFullExpandButton)
+        options.Append("hs.fullExpandOpacity = 0;");
+
+      if (ExpandEvent == ExpandEventType.MouseOver)
+        options.Append("hs.Expander.prototype.onMouseOut = function(sender) { sender.close(); };");
+
+      Page.ClientScript.RegisterStartupScript(GetType(), "HighslideOptions", options.ToString(), true);
 
       if (ControlBar)
       {
@@ -169,7 +320,7 @@ namespace Encosia
     protected override void Render(HtmlTextWriter writer)
     {
       if (RenderScriptInPlace)
-      {        
+      {
         // Register the main JavaScript code, using embedded resource link.
         string HSEmbedSrc = Page.ClientScript.GetWebResourceUrl(GetType(), "HighslideImage.highslide.min.js");
 
@@ -194,23 +345,25 @@ namespace Encosia
       base.Render(writer);
     }
 
+    /// <summary>
+    /// Map a ControlBarPositionType enum to the string required by Highslide.
+    /// </summary>
     private string GetControlBarPositionString(ControlBarPostitionType position)
     {
-      switch (position)
-      {
-        case ControlBarPostitionType.TopLeft:
-          return "top left";
+      string[] positionNames = { "top left", "top right", "bottom left", "bottom right" };
 
-        case ControlBarPostitionType.BottomRight:
-          return "bottom right";
+      return positionNames[(int)position];
+    }
 
-        case ControlBarPostitionType.BottomLeft:
-          return "bottom left";
+    /// <summary>
+    /// Map a GetAnchorPosition enum to the string required by Highslide.
+    /// </summary>
+    private string GetAnchorPositionString(AnchorPositionType position)
+    {
+      string[] positionNames = { "auto", "top", "top right", "right", "bottom right",
+                                 "bottom", "bottom left", "left", "top left" };
 
-        case ControlBarPostitionType.TopRight:
-        default:
-          return "top right";
-      }
+      return positionNames[(int)position];
     }
   }
 }
