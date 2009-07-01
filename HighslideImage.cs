@@ -1,5 +1,6 @@
 using System.ComponentModel;
 using System.Web.UI;
+using System;
 
 namespace Encosia
 {
@@ -31,7 +32,7 @@ namespace Encosia
       get { return _titleText; }
       set { _titleText = value; }
     }
-    
+
     [Description("Link target for users with JavaScript disabled.")]
     public string LinkTarget
     {
@@ -41,6 +42,9 @@ namespace Encosia
 
     protected override void Render(HtmlTextWriter writer)
     {
+      if (HighslideManager.Manager == null)
+        throw new Exception("A HighslideManager must be added to the page before a HighslideImage may be used.");
+
       // Adding attributes to the base (Image)
       writer.AddAttribute(HtmlTextWriterAttribute.Href, Page.ResolveUrl(_fullImageURL));
       writer.AddAttribute(HtmlTextWriterAttribute.Class, "highslide");
@@ -51,6 +55,9 @@ namespace Encosia
       // "Obtrusive" mode, I suppose.  Really, this is better for now, in case
       //  the HighslideImage is in an UpdatePanel.
       writer.AddAttribute(HtmlTextWriterAttribute.Onclick, "return hs.expand(this);");
+
+      if (HighslideManager.Manager.ExpandEvent == HighslideManager.ExpandEventType.MouseOver)
+        writer.AddAttribute("onmouseover", "return this.onclick();");
 
       // Create the <a> tag and set up its attributes.
       writer.RenderBeginTag(HtmlTextWriterTag.A);
