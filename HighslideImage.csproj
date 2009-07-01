@@ -73,6 +73,8 @@
     <EmbeddedResource Include="highslide.min.js" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="graphics\loader-white.gif" />
+    <EmbeddedResource Include="graphics\roundedblack.png" />
     <Content Include="highslide.js" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
