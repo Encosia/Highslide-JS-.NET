@@ -27,9 +27,12 @@ using System.Web.UI;
 [assembly: WebResource("HighslideImage.graphics.dropshadow.png", "application/octet-stream")]
 [assembly: WebResource("HighslideImage.graphics.outerglow.png", "application/octet-stream")]
 [assembly: WebResource("HighslideImage.graphics.roundedwhite.png", "application/octet-stream")]
+[assembly: WebResource("HighslideImage.graphics.roundedblack.png", "application/octet-stream")]
 
 [assembly: WebResource("HighslideImage.graphics.controlbar4.gif", "application/octet-stream")]
 [assembly: WebResource("HighslideImage.graphics.controlbar4-hover.gif", "application/octet-stream")]
+
+[assembly: WebResource("HighslideImage.graphics.loader-white.gif", "application/octet-stream")]
 
 // Setting ComVisible to false makes the types in this assembly not visible 
 // to COM components.  If you need to access a type in this assembly from 
@@ -48,5 +51,5 @@ using System.Web.UI;
 //
 // You can specify all the values or you can default the Revision and Build Numbers 
 // by using the '*' as shown below:
-[assembly: AssemblyVersion("4.1.4")]
-[assembly: AssemblyFileVersion("4.1.4")]
+[assembly: AssemblyVersion("4.1.5")]
+[assembly: AssemblyFileVersion("4.1.5")]
