@@ -1,11 +1,11 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 10.00
-# Visual Studio 2008
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HighslideImage", "HighslideImage.csproj", "{D7A07131-323C-4E88-9F86-6854AF438018}"
 EndProject
 Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Highslide.Web", "..\Highslide.Web\", "{25DB8AC4-FC39-4878-BEB4-DBE34E4DE531}"
 	ProjectSection(WebsiteProperties) = preProject
-		TargetFramework = "2.0"
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv2.0"
 		ProjectReferences = "{D7A07131-323C-4E88-9F86-6854AF438018}|HighslideImage.dll;"
 		Debug.AspNetCompiler.VirtualPath = "/Highslide.Web"
 		Debug.AspNetCompiler.PhysicalPath = "..\Highslide.Web\"

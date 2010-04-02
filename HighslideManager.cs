@@ -22,7 +22,7 @@ namespace Encosia
       BottomLeft,
       BottomRight,
     }
-
+    
     public enum AnchorPositionType
     {
       Auto,
@@ -59,6 +59,9 @@ namespace Encosia
     private int _marginLeft = 15;
 
     private bool _showFullExpandButton = true;
+    
+    private bool? _allowMultipleInstances;
+    private bool? _blockRightClick;
 
     private bool _fadeInOut = true;
     private OutlineTypes _outlineType = OutlineTypes.RoundedWhite;
@@ -216,6 +219,22 @@ namespace Encosia
       set { _expandEvent = value; }
     }
 
+    [Description("Should more than one image be allowed to enlarge at the same time?")]
+    [DefaultValue(true)]
+    public bool? AllowMultipleInstances
+    {
+      get { return _allowMultipleInstances; }
+      set { _allowMultipleInstances = value; }
+    }
+
+    [Description("Should Highslide attempt to prevent right clicks on the image?")]
+    [DefaultValue(false)]
+    public bool? BlockRightClick
+    {
+      get { return _blockRightClick; }
+      set { _blockRightClick = value; }
+    }
+
     /// <summary>
     /// To improve serialization.  Later...
     /// </summary>
@@ -244,9 +263,9 @@ namespace Encosia
       if (!RenderScriptInPlace)
       {
         // Register the main JavaScript code, using embedded resource link.
-        string HSEmbedSrc = Page.ClientScript.GetWebResourceUrl(GetType(), "HighslideImage.highslide.min.js");
+        string hsEmbedSrc = Page.ClientScript.GetWebResourceUrl(GetType(), "HighslideImage.highslide.min.js");
 
-        Page.ClientScript.RegisterClientScriptInclude("Highslide", HSEmbedSrc);
+        Page.ClientScript.RegisterClientScriptInclude("Highslide", hsEmbedSrc);
       }
 
       if (IncludeDefaultCSS)
@@ -298,6 +317,12 @@ namespace Encosia
       if (!ShowFullExpandButton)
         options.Append("hs.fullExpandOpacity = 0;");
 
+      if (AllowMultipleInstances != null)
+        options.AppendFormat("hs.allowMultipleInstances = {0};", AllowMultipleInstances.Value ? "true" : "false");
+
+      if (BlockRightClick != null)
+        options.AppendFormat("hs.blockRightClick = {0};", BlockRightClick.Value ? "true" : "false");
+
       if (ExpandEvent == ExpandEventType.MouseOver)
         options.Append("hs.Expander.prototype.onMouseOut = function(sender) { sender.close(); };");
 
@@ -322,9 +347,9 @@ namespace Encosia
       if (RenderScriptInPlace)
       {
         // Register the main JavaScript code, using embedded resource link.
-        string HSEmbedSrc = Page.ClientScript.GetWebResourceUrl(GetType(), "HighslideImage.highslide.min.js");
+        string hsEmbedSrc = Page.ClientScript.GetWebResourceUrl(GetType(), "HighslideImage.highslide.min.js");
 
-        writer.WriteLine(string.Format("<script type=\"text/javascript\" src=\"{0}\"></script>", HSEmbedSrc));
+        writer.WriteLine(string.Format("<script type=\"text/javascript\" src=\"{0}\"></script>", hsEmbedSrc));
       }
 
       if (ControlBar)

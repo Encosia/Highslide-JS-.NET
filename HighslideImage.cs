@@ -10,6 +10,7 @@ namespace Encosia
     private string _caption;
     private string _titleText = "Click to view full size";
     private string _linkTarget;
+    private bool _disabled = false;
     
     [Description("URL to full size image when the thumbnail is clicked")]
     [UrlProperty()]
@@ -40,10 +41,26 @@ namespace Encosia
       set { _linkTarget = value; }
     }
 
+    [Description("Disable enlargements on this thumbnail?")]
+    [DefaultValue(false)]
+    public bool Disabled
+    {
+      get { return _disabled; }
+      set { _disabled = value; }
+    }
+
     protected override void Render(HtmlTextWriter writer)
     {
       if (HighslideManager.Manager == null)
         throw new Exception("A HighslideManager must be added to the page before a HighslideImage may be used.");
+
+      // If the enlargements are disabled, just render the normal underlying Image control and quit.
+      if (Disabled)
+      {
+        base.Render(writer);
+
+        return;
+      }
 
       // Adding attributes to the base (Image)
       writer.AddAttribute(HtmlTextWriterAttribute.Href, Page.ResolveUrl(_fullImageURL));
