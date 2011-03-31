@@ -11,7 +11,7 @@ using System.Web.UI;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Encosia")]
 [assembly: AssemblyProduct("Highslide JS .NET")]
-[assembly: AssemblyCopyright("Copyright © 2009")]
+[assembly: AssemblyCopyright("Copyright © 2010")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -51,5 +51,5 @@ using System.Web.UI;
 //
 // You can specify all the values or you can default the Revision and Build Numbers 
 // by using the '*' as shown below:
-[assembly: AssemblyVersion("4.1.5")]
-[assembly: AssemblyFileVersion("4.1.5")]
+[assembly: AssemblyVersion("4.1.12")]
+[assembly: AssemblyFileVersion("4.1.12")]

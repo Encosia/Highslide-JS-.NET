@@ -93,6 +93,7 @@
     <EmbeddedResource Include="graphics\roundedblack.png" />
     <EmbeddedResource Include="highslide.min.js" />
     <Content Include="highslide.js" />
+    <Content Include="highslide.old.js" />
     <Content Include="oldhighslide.js" />
   </ItemGroup>
   <ItemGroup>
