@@ -7,11 +7,11 @@ using System.Web.UI;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("Highslide JS .NET")]
-[assembly: AssemblyDescription(".NET control to encapsulate Highslide JS")]
+[assembly: AssemblyDescription("An ASP.NET control to encapsulate Highslide JS")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Encosia")]
 [assembly: AssemblyProduct("Highslide JS .NET")]
-[assembly: AssemblyCopyright("Copyright © 2010")]
+[assembly: AssemblyCopyright("Copyright © 2011")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
