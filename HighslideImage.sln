@@ -3,6 +3,26 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HighslideImage", "HighslideJS.NET\HighslideImage.csproj", "{D7A07131-323C-4E88-9F86-6854AF438018}"
 EndProject
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Highslide-SampleSite", "Highslide-SampleSite\", "{535B2699-CE4E-47B4-84EC-2CD1D05454E4}"
+	ProjectSection(WebsiteProperties) = preProject
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
+		Debug.AspNetCompiler.VirtualPath = "/Highslide-SampleSite"
+		Debug.AspNetCompiler.PhysicalPath = "Highslide-SampleSite\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\Highslide-SampleSite\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/Highslide-SampleSite"
+		Release.AspNetCompiler.PhysicalPath = "Highslide-SampleSite\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\Highslide-SampleSite\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "10351"
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,6 +33,10 @@ Global
 		{D7A07131-323C-4E88-9F86-6854AF438018}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D7A07131-323C-4E88-9F86-6854AF438018}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D7A07131-323C-4E88-9F86-6854AF438018}.Release|Any CPU.Build.0 = Release|Any CPU
+		{535B2699-CE4E-47B4-84EC-2CD1D05454E4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{535B2699-CE4E-47B4-84EC-2CD1D05454E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{535B2699-CE4E-47B4-84EC-2CD1D05454E4}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{535B2699-CE4E-47B4-84EC-2CD1D05454E4}.Release|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
