@@ -1,0 +1,44 @@
+﻿body { 
+  background: #E4EFF4 url(img/main-bg.gif);
+  font-family: Trebuchet MS, Verdana, Sans-Serif; 
+  margin: 0px; 
+  padding: 0px; 
+}
+
+img { border: none; }
+
+#page {
+  background-color: #fff;
+  width: 520px;
+  margin: 0 auto;
+	border-bottom: 5px solid #d5e6eb;
+	border-left: 5px solid #d5e6eb;
+	border-right: 5px solid #d5e6eb;
+}
+
+#header {
+	background: #000000 url(img/banner-gradient.png) repeat-x;
+	height: 135px;
+	border-bottom: 1px solid #FFF2AD;
+	position: relative;
+}
+
+#headerimg {
+	position: absolute;
+	top: 15px;
+	left: 13px;
+}
+
+#RSSBlock { 
+	position: absolute;
+	right: 10px;
+	top: 10px;
+}
+
+#RSSBlock img {
+	margin-left: 5px;
+}
+
+#content {
+  padding: 5px 5px;
+}
